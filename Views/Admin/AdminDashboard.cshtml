@@ -1,0 +1,74 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="container-fluid px-0">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-light border-bottom mb-4">
+        <div class="container">
+            <span class="navbar-brand fw-semibold text-dark">
+                Airline Admin
+            </span>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto fw-medium">
+                    <li class="nav-item"><a class="nav-link text-dark" asp-action="Profile">Profile</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-action="SeeUsers">Users</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-action="AddAirplane">Add Airplane</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-action="SeeAirplanes">Airplanes</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" asp-action="SeeBookings">Bookings</a></li>
+                    <li class="nav-item">
+                        <a class="btn btn-outline-danger btn-sm ms-2" asp-action="Logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Dashboard Content -->
+    <div class="container">
+        <div class="mb-4">
+            <h2 class="fw-bold">Admin Dashboard</h2>
+            <p class="text-muted">Manage the airline system from one place.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h5>Users</h5>
+                        <p class="text-muted">View and manage registered users</p>
+                        <a asp-action="SeeUsers" class="btn btn-dark btn-sm">Manage Users</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h5>Airplanes</h5>
+                        <p class="text-muted">Add and manage flights</p>
+                        <a asp-action="SeeAirplanes" class="btn btn-dark btn-sm">View Airplanes</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body text-center">
+                        <h5>Bookings</h5>
+                        <p class="text-muted">Monitor ticket bookings</p>
+                        <a asp-action="SeeBookings" class="btn btn-dark btn-sm">View Bookings</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
