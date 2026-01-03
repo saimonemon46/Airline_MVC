@@ -1,0 +1,76 @@
+﻿@model List<Air.Models.User>
+@{
+    ViewData["Title"] = "Registered Users";
+}
+
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">Registered Users</h2>
+        <div>
+            <a class="btn btn-secondary me-2" asp-controller="Admin" asp-action="Dashboard">Back to Dashboard</a>
+            <a class="btn btn-info" asp-controller="Admin" asp-action="SeeBookings">View Bookings</a>
+        </div>
+    </div>
+
+    @if (Model == null || !Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            No users registered yet.
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive shadow-sm rounded">
+            <table class="table table-striped table-hover table-bordered align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int count = 1;
+                    }
+                    @foreach (var user in Model)
+                    {
+                        <tr>
+                            <td>@count</td>
+                            <td>@user.Username</td>
+                            <td>@user.Email</td>
+                            <td>@user.Phone</td>
+                        </tr>
+                        count++;
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Styles {
+    <style>
+        .table-hover tbody tr:hover {
+            background-color: #e8f4ff; /* light blue hover */
+        }
+
+        h2 {
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            transition: all 0.2s ease-in-out;
+        }
+
+            .btn:hover {
+                transform: translateY(-2px);
+            }
+
+        .table-responsive {
+            background-color: #fff;
+            padding: 15px;
+        }
+    </style>
+}

@@ -1,0 +1,80 @@
+﻿@model Air.Models.Airplane
+@{
+    ViewData["Title"] = "Add Airplane";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Add Airplane</h3>
+        </div>
+        <div class="card-body">
+
+            @if (TempData["Message"] != null)
+            {
+                <div class="alert alert-success">@TempData["Message"]</div>
+            }
+
+            <form asp-action="AddAirplane" method="post">
+                <div class="mb-3">
+                    <label asp-for="AirportName" class="form-label"></label>
+                    <input asp-for="AirportName" class="form-control" />
+                    <span asp-validation-for="AirportName" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="AirplaneName" class="form-label"></label>
+                    <input asp-for="AirplaneName" class="form-control" />
+                    <span asp-validation-for="AirplaneName" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="SeatRows" class="form-label"></label>
+                        <input asp-for="SeatRows" type="number" class="form-control" />
+                        <span asp-validation-for="SeatRows" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="SeatColumns" class="form-label"></label>
+                        <input asp-for="SeatColumns" type="number" class="form-control" />
+                        <span asp-validation-for="SeatColumns" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="DepartureTime" class="form-label"></label>
+                    <input asp-for="DepartureTime" type="datetime-local" class="form-control" />
+                    <span asp-validation-for="DepartureTime" class="text-danger"></span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="StartingPoint" class="form-label"></label>
+                        <input asp-for="StartingPoint" class="form-control" />
+                        <span asp-validation-for="StartingPoint" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label asp-for="Destination" class="form-label"></label>
+                        <input asp-for="Destination" class="form-control" />
+                        <span asp-validation-for="Destination" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label asp-for="TicketPrice" class="form-label"></label>
+                    <input asp-for="TicketPrice" class="form-control" />
+                    <span asp-validation-for="TicketPrice" class="text-danger"></span>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a asp-controller="Admin" asp-action="SeeAirplanes" class="btn btn-secondary">View Airplanes</a>
+                    <button type="submit" class="btn btn-primary">Add Airplane</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

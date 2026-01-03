@@ -1,0 +1,60 @@
+﻿@model List<Air.Models.Booking>
+@{
+    ViewData["Title"] = "All Bookings";
+}
+
+<h2 class="text-center mb-4">All Bookings</h2>
+
+<div class="mb-3 d-flex justify-content-between">
+    <a asp-controller="Admin" asp-action="Dashboard" class="btn btn-primary">Back to Dashboard</a>
+    <a asp-controller="Admin" asp-action="SeeUsers" class="btn btn-secondary">See Users</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">
+        No bookings yet.
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var booking in Model)
+        {
+            <div class="col-md-4">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">@booking.UserName</h5>
+                        <p class="card-text"><strong>Flight:</strong> @booking.Airplane?.AirplaneName</p>
+                        <p class="card-text"><strong>Seat:</strong> @booking.SeatLabel</p>
+                        <p class="card-text"><strong>Departure:</strong> @booking.Airplane?.DepartureTime.ToString("dd MMM yyyy HH:mm")</p>
+                        <p class="card-text"><strong>Ticket Price:</strong> @(booking.Airplane != null ? booking.Airplane.TicketPrice.ToString("C") : "-")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<style>
+    h2 {
+        color: #0d6efd;
+    }
+
+    .btn {
+        font-weight: 500;
+    }
+
+    .card {
+        transition: transform 0.2s;
+    }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+
+    .card-title {
+        font-size: 1.25rem;
+    }
+</style>

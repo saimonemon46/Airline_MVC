@@ -1,0 +1,49 @@
+﻿@model List<Air.Models.Airplane>
+@{
+    ViewData["Title"] = "Airplanes";
+}
+
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">Available Airplanes</h2>
+        <a asp-controller="Admin" asp-action="Dashboard" class="btn btn-outline-primary">
+            Dashboard
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning">No airplanes available.</div>
+    }
+    else
+    {
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            @foreach (var plane in Model)
+            {
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">@plane.AirplaneName</h5>
+                            <p class="card-text mb-1"><strong>Airport:</strong> @plane.AirportName</p>
+                            <p class="card-text mb-1"><strong>From:</strong> @plane.StartingPoint | <strong>To:</strong> @plane.Destination</p>
+                            <p class="card-text mb-1"><strong>Departure:</strong> @plane.DepartureTime.ToString("g")</p>
+                            <p class="card-text mb-1"><strong>Seats:</strong> @plane.AvailableSeats / @plane.TotalSeats</p>
+                            <p class="card-text mb-3"><strong>Ticket Price:</strong> @plane.TicketPrice.ToString("C")</p>
+
+                            @if (plane.AvailableSeats > 0)
+                            {
+                                <a asp-controller="User" asp-action="SelectSeat" asp-route-flightId="@plane.Id" class="btn btn-success w-100">
+                                    Book Now
+                                </a>
+                            }
+                            else
+                            {
+                                <button class="btn btn-secondary w-100" disabled>Fully Booked</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

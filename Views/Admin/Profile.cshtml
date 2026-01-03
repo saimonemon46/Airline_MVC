@@ -1,0 +1,44 @@
+﻿@model Air.Models.User
+@{
+    ViewData["Title"] = "Admin Profile";
+}
+
+<div class="d-flex justify-content-center align-items-center" style="min-height: 70vh;">
+    <div class="card shadow-sm p-4" style="width: 420px;">
+        <h3 class="text-center mb-4">Admin Profile</h3>
+
+        @if (Model != null)
+        {
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                    <strong>Username:</strong>
+                    <span class="float-end">@Model.Username</span>
+                </li>
+                <li class="list-group-item">
+                    <strong>Email:</strong>
+                    <span class="float-end">@Model.Email</span>
+                </li>
+                <li class="list-group-item">
+                    <strong>Phone:</strong>
+                    <span class="float-end">@Model.Phone</span>
+                </li>
+                <li class="list-group-item">
+                    <strong>Role:</strong>
+                    <span class="badge bg-dark float-end">Administrator</span>
+                </li>
+            </ul>
+
+            <div class="mt-4 text-center">
+                <a asp-controller="Admin" asp-action="Dashboard" class="btn btn-outline-dark">
+                    Back to Dashboard
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-warning text-center">
+                No admin information available.
+            </div>
+        }
+    </div>
+</div>
