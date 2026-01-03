@@ -1,0 +1,37 @@
+﻿@model Air.Models.User
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">User Profile</h4>
+                </div>
+                <div class="card-body">
+                    @if (Model != null)
+                    {
+                        <div class="text-center mb-3">
+                            <img src="https://via.placeholder.com/100" class="rounded-circle" alt="User Avatar" />
+                        </div>
+                        <h5 class="card-title text-center">@Model.Username</h5>
+                        <hr />
+                        <p class="card-text"><strong>Email:</strong> @Model.Email</p>
+                        <p class="card-text"><strong>Phone:</strong> @Model.Phone</p>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="@Url.Action("Dashboard", "User")" class="btn btn-secondary">Dashboard</a>
+                            <a href="@Url.Action("BookTicket", "User")" class="btn btn-primary">Book Ticket</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-center text-muted">No profile information available.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

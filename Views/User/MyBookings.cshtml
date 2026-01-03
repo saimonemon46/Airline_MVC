@@ -1,0 +1,76 @@
+﻿@model List<Air.Models.Booking>
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0 text-primary">My Bookings</h2>
+    <a asp-controller="User" asp-action="Dashboard" class="btn btn-primary">Back to Dashboard</a>
+</div>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">
+        You have no bookings yet.
+    </div>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var booking in Model)
+        {
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <strong>@booking.Airplane?.AirplaneName</strong>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Seat:</strong> @booking.SeatLabel</p>
+                        <p>
+                            <strong>Departure:</strong>
+                            <span class="badge bg-info text-dark p-2">
+                                @booking.Airplane?.DepartureTime.ToString("dd MMM yyyy HH:mm")
+                            </span>
+                        </p>
+                        <p><strong>User:</strong> @booking.UserName</p>
+                        <p><strong>Ticket Price:</strong> @(booking.Airplane != null ? booking.Airplane.TicketPrice.ToString("C") : "-")</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <form asp-controller="User" asp-action="CancelBooking" method="post">
+                            <input type="hidden" name="bookingId" value="@booking.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to cancel this booking?');">
+                                Cancel Booking
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+<style>
+    h2 {
+        color: #0d6efd;
+    }
+
+    .card {
+        border-radius: 0.5rem;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+        border-radius: 0.25rem;
+    }
+
+    .card-header {
+        font-size: 1.1rem;
+    }
+
+    .btn-sm {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .shadow-sm {
+        box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075) !important;
+    }
+</style>

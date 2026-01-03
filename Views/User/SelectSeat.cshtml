@@ -1,0 +1,87 @@
+﻿@model Air.Models.SeatSelectionViewModel
+@{
+    ViewData["Title"] = "Select Seat";
+}
+
+<h2>@Model.FlightName - Select Your Seat</h2>
+<p>Ticket Price: @Model.TicketPrice.ToString("C")</p>
+<p>Available Seats: @Model.AvailableSeats</p> <!-- cleaner -->
+
+<form asp-action="ConfirmBooking" method="post" id="seatForm">
+    <input type="hidden" name="airplaneId" value="@Model.FlightId" />
+    <input type="hidden" name="seat" id="selectedSeat" />
+
+    <div class="seat-grid">
+        @for (int r = 1; r <= Model.SeatRows; r++)
+        {
+            <div class="seat-row">
+                @for (char c = 'A'; c < 'A' + Model.SeatCols; c++)
+                {
+                    var seatLabel = $"{r}{c}";
+                    var isBooked = Model.BookedSeats.Contains(seatLabel);
+                    <button type="button"
+                            class="seat-btn @(isBooked ? "booked" : "available")"
+                            data-seat="@seatLabel"
+                            @(isBooked ? "disabled" : "")>
+                        @seatLabel
+                    </button>
+                }
+            </div>
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3" id="confirmBtn" disabled>Confirm Booking</button>
+</form>
+
+
+<style>
+    .seat-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .seat-row {
+        display: flex;
+        gap: 5px;
+    }
+
+    .seat-btn {
+        width: 50px;
+        height: 50px;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        color: white;
+    }
+
+    .available {
+        background-color: #28a745;
+    }
+    /* green */
+    .booked {
+        background-color: #dc3545 !important;
+        cursor: not-allowed;
+    }
+    /* red */
+    .seat-selected {
+        background-color: #ffc107 !important;
+        color: black;
+    }
+    /* yellow highlight */
+</style>
+
+<script>
+    const buttons = document.querySelectorAll('.seat-btn.available');
+    const selectedSeatInput = document.getElementById('selectedSeat');
+    const confirmBtn = document.getElementById('confirmBtn');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function () {
+            buttons.forEach(b => b.classList.remove('seat-selected'));
+            this.classList.add('seat-selected');
+            selectedSeatInput.value = this.dataset.seat;
+            confirmBtn.disabled = false;
+        });
+    });
+</script>
